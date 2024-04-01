@@ -2,7 +2,7 @@
 import pygame
 import sys
 from settings import *
-from machine import Slot_Machine
+from slot_machine import Slot_Machine
 
 
 class Game:

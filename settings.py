@@ -4,6 +4,7 @@ FPS = 120
 HEIGHT = 1000
 WIDTH = 1600
 START_X, START_Y = 0, -300
+X_OFFSET, Y_OFFSET = 20, 0
 
 # Images
 BG_IMAGE_PATH = 'graphics/0/bg.png'
