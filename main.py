@@ -1,16 +1,9 @@
 # Importing game_settings module as gs
 import pygame
 import sys
+from settings import *
 from slot_machine import Slot_Machine
 
-# Display settings
-DEFAULT_IMAGE_SIZE = (300, 300)
-FPS = 120
-HEIGHT_Y = 1000
-WIDTH_X = 1600
-
-# Images
-BG_IMAGE_PATH = 'graphics/0/bg.png'
 
 class Game:
     def __init__(self):
@@ -18,7 +11,7 @@ class Game:
         # General setup
         pygame.init()
         # Accessing WIDTH and HEIGHT using gs namespace
-        self.screen = pygame.display.set_mode((WIDTH_X, HEIGHT_Y))
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption('Slot Machine Demo')
         self.clock = pygame.time.Clock()
         self.bg_image = pygame.image.load(BG_IMAGE_PATH)
@@ -28,8 +21,8 @@ class Game:
         self.delta_time = 0
 
         # Sound
-        main_sound = pygame.mixer.Sound('audio/track.mp3')
-        main_sound.play(loops=-1)
+        # main_sound = pygame.mixer.Sound('audio/track.mp3')
+        # main_sound.play(loops=-1)
 
     def run(self):
 
