@@ -3,9 +3,11 @@ DEFAULT_IMAGE_SIZE = (300, 300)
 FPS = 120
 HEIGHT = 1000
 WIDTH = 1600
+START_X, START_Y = 0, -300
 
 # Images
 BG_IMAGE_PATH = 'graphics/0/bg.png'
+GAME_INDICES = {1, 2, 3} # 0 and 4 are outside of play area
 SYM_PATH = 'graphics/0/symbols'
 
 # 5 Symbols for demo
