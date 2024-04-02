@@ -1,4 +1,3 @@
-# Importing game_settings module as gs
 import pygame
 import sys
 from settings import *
@@ -29,13 +28,13 @@ class Game:
         self.start_time = pygame.time.get_ticks()
 
         while True:
-
-
             # Handle quit operation
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit() 
+            
+            
 
             # Time variables
             self.delta_time = (pygame.time.get_ticks() - self.start_time) / 1000
