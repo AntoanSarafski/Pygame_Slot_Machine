@@ -1,3 +1,4 @@
+from player import Player
 from reel import *
 from settings import *
 from wins import *
@@ -8,6 +9,7 @@ import pygame
 class Slot_Machine:
     def __init__(self):
         self.display_surface = pygame.display.get_surface()
+        self.machine_balance = 10000.00
         self.reel_index = 0
         self.reel_list = {}
         self.can_toggle = True
@@ -19,6 +21,7 @@ class Slot_Machine:
         self.spin_result = {0: None, 1: None, 2: None, 3: None, 4: None}
 
         self.spawn_reels()
+        self.currPlayer = Player()
 
     def cooldowns(self):
         # Only lets player spin if all reels are NOT spinning
@@ -35,7 +38,8 @@ class Slot_Machine:
                 self.win_data = self.check_wins(self.spin_result)
                 # Play win sound
                 # self.play_win_sound(self.win_data)
-                # self.pay_player(self.win_data, self.currPlayer)
+                self.pay_player(self.win_data, self.currPlayer)
+                print(self.currPlayer.get_data())
                 # self.win_animation_ongoing = True
                 # self.ui.win_text_angle = random.randint(-4, 4) # Different text for win
 
@@ -95,6 +99,18 @@ class Slot_Machine:
                         hits[horizontal.index(row) + 1] = [sym, longest_seq(possible_win)]
         if hits:
             return hits
+        
+    def pay_player(self, win_data, curr_player):
+        multiplier = 0
+        spin_payout = 0
+
+        for v in win_data.values():
+            multiplier += len(v)
+            spin_payout = multiplier * curr_player.bet_size
+            curr_player.balance += spin_payout
+            self.machine_balance -= spin_payout
+            self.currPlayer.last_payout = spin_payout
+
         
     def update(self, delta_time):
         self.cooldowns()
