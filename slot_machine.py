@@ -39,7 +39,6 @@ class Slot_Machine:
                 # Play win sound
                 # self.play_win_sound(self.win_data)
                 self.pay_player(self.win_data, self.currPlayer)
-                print(self.currPlayer.get_data())
                 # self.win_animation_ongoing = True
                 # self.ui.win_text_angle = random.randint(-4, 4) # Different text for win
 
@@ -47,14 +46,13 @@ class Slot_Machine:
         keys = pygame.key.get_pressed()
 
         #Checks for space key, ability to toggle spin, and balance to cover bet size
-        # if keys[pygame.K_SPACE] and self.can_toggle and self.currPlayer.balance >= self.currPlayer.bet_size:
-            # Simple if statement for demo : 
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] and self.can_toggle and self.currPlayer.balance >= self.currPlayer.bet_size:
             self.toggle_spinning()
             self.spin_time = pygame.time.get_ticks()
-            # self.currPlayer.place_bet()
-            # self.machine_balance += self.currPlayer.bet_size
-            # self.currPlayer.last_payout = None
+            self.currPlayer.place_bet()
+            self.machine_balance += self.currPlayer.bet_size
+            self.currPlayer.last_payout = None
+            print(self.currPlayer.get_data())
 
     def draw_reels(self, delta_time):
         for reel in self.reel_list:
