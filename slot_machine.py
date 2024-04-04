@@ -51,8 +51,8 @@ class Slot_Machine:
             self.spin_time = pygame.time.get_ticks()
             self.currPlayer.place_bet()
             self.machine_balance += self.currPlayer.bet_size
-            self.currPlayer.last_payout = None
             print(self.currPlayer.get_data())
+            self.currPlayer.last_payout = None
 
     def draw_reels(self, delta_time):
         for reel in self.reel_list:
@@ -101,14 +101,13 @@ class Slot_Machine:
     def pay_player(self, win_data, curr_player):
         multiplier = 0
         spin_payout = 0
-
         for v in win_data.values():
-            multiplier += len(v)
-            spin_payout = multiplier * curr_player.bet_size
+            multiplier += len(v[1])
+            spin_payout = (multiplier * curr_player.bet_size)
             curr_player.balance += spin_payout
             self.machine_balance -= spin_payout
-            self.currPlayer.last_payout = spin_payout
-
+            curr_player.last_payout = spin_payout
+            curr_player.total_won += spin_payout
         
     def update(self, delta_time):
         self.cooldowns()
