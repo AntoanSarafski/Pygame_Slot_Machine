@@ -104,11 +104,11 @@ class Slot_Machine:
         spin_payout = 0
         for v in win_data.values():
             multiplier += len(v[1])
-            spin_payout = (multiplier * curr_player.bet_size)
-            curr_player.balance += spin_payout
-            self.machine_balance -= spin_payout
-            curr_player.last_payout = spin_payout
-            curr_player.total_won += spin_payout
+        spin_payout = (multiplier * curr_player.bet_size)
+        curr_player.balance += spin_payout
+        self.machine_balance -= spin_payout
+        curr_player.last_payout = spin_payout
+        curr_player.total_won += spin_payout
         
     def update(self, delta_time):
         self.cooldowns()
