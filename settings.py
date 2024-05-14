@@ -11,6 +11,12 @@ BG_IMAGE_PATH = 'graphics/0/bg.png'
 GAME_INDICES = {1, 2, 3} # 0 and 4 are outside of play area
 SYM_PATH = 'graphics/0/symbols'
 
+# TEXT 
+TEXT_COLOR = 'White'
+UI_FONT = 'graphics/font/kidspace.ttf'
+UI_FONT_SIZE = 30
+WIN_FONT_SIZE = 110
+
 # 5 Symbols for demo
 # symbols = {
 #     'diamond': f"{SYM_PATH}/0_diamond.png",
@@ -28,3 +34,4 @@ symbols = {
     'hourglass2': f"{SYM_PATH}/0_hourglass.png",
     'telephone': f"{SYM_PATH}/0_telephone.png"
 }
+

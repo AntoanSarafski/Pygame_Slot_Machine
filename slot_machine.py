@@ -1,6 +1,7 @@
 from debug import debug
 from player import Player
 from reel import *
+from ui import UI
 from settings import *
 from wins import *
 import pygame
@@ -23,6 +24,7 @@ class Slot_Machine:
 
         self.spawn_reels()
         self.currPlayer = Player()
+        self.ui = UI(self.currPlayer)
 
     def cooldowns(self):
         # Only lets player spin if all reels are NOT spinning
@@ -117,14 +119,15 @@ class Slot_Machine:
         for reel in self.reel_list:
             self.reel_list[reel].symbol_list.draw(self.display_surface)
             self.reel_list[reel].symbol_list.update()
+        self.ui.update()
 
         # Balance\Payout debugger
             
-        debug_player_data = self.currPlayer.get_data()
-        machine_balance = "{:.2f}".format(self.machine_balance)
-        if self.currPlayer.last_payout:
-            last_payout = "{:.2f}".format(self.currPlayer.last_payout)
-        else:
-            last_payout = "N/A"
-        debug(f"Player balance: {debug_player_data['balance']} | Machine balance: {machine_balance} | Last payout: {last_payout}")
+        # debug_player_data = self.currPlayer.get_data()
+        # machine_balance = "{:.2f}".format(self.machine_balance)
+        # if self.currPlayer.last_payout:
+        #     last_payout = "{:.2f}".format(self.currPlayer.last_payout)
+        # else:
+        #     last_payout = "N/A"
+        # debug(f"Player balance: {debug_player_data['balance']} | Machine balance: {machine_balance} | Last payout: {last_payout}")
         
