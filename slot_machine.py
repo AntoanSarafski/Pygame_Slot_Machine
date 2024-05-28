@@ -16,6 +16,7 @@ class Slot_Machine:
         self.reel_list = {}
         self.can_toggle = True
         self.spinning = False
+        self.can_animate = False
         self.win_animation_ongoing = False
 
         # Results
@@ -42,8 +43,8 @@ class Slot_Machine:
                 # Play win sound
                 # self.play_win_sound(self.win_data)
                 self.pay_player(self.win_data, self.currPlayer)
-                # self.win_animation_ongoing = True
-                # self.ui.win_text_angle = random.randint(-4, 4) # Different text for win
+                self.win_animation_ongoing = True
+                self.ui.win_text_angle = random.randint(-4, 4)
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -54,7 +55,6 @@ class Slot_Machine:
             self.spin_time = pygame.time.get_ticks()
             self.currPlayer.place_bet()
             self.machine_balance += self.currPlayer.bet_size
-            print(self.currPlayer.get_data())
             self.currPlayer.last_payout = None
 
     def draw_reels(self, delta_time):
@@ -81,6 +81,7 @@ class Slot_Machine:
             for reel in self.reel_list:
                 self.reel_list[reel].start_spin(int(reel) * 200)
                 # self.spin_sound.play()
+                self.win_animation_ongoing = False
 
     def get_result(self):
         for reel in self.reel_list:
@@ -99,6 +100,7 @@ class Slot_Machine:
                     if len(longest_seq(possible_win)) > 2:
                         hits[horizontal.index(row) + 1] = [sym, longest_seq(possible_win)]
         if hits:
+            self.can_animate = True
             return hits
         
     def pay_player(self, win_data, curr_player):
@@ -112,14 +114,34 @@ class Slot_Machine:
         curr_player.last_payout = spin_payout
         curr_player.total_won += spin_payout
         
+
+    def win_animation(self):
+        if self.win_animation_ongoing and self.win_data:
+            for k, v in list(self.win_data.items()):
+                if k == 1:
+                    animationRow = 3 
+                elif k == 3:
+                    animationRow = 1
+                else:
+                    animationRow = 2
+                animationCols = v[1]
+                for reel in self.reel_list:
+                    if reel in animationCols and self.can_animate:
+                        self.reel_list[reel].symbol_list.sprites()[animationRow].fade_in = True
+                    for symbol in self.reel_list[reel].symbol_list:
+                        if not symbol.fade_in:
+                            symbol.fade_out = True
+
+
     def update(self, delta_time):
         self.cooldowns()
-        self.input()
+        self.input()       
         self.draw_reels(delta_time)
         for reel in self.reel_list:
             self.reel_list[reel].symbol_list.draw(self.display_surface)
             self.reel_list[reel].symbol_list.update()
         self.ui.update()
+        self.win_animation()
 
         # Balance\Payout debugger
             
